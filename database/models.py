@@ -73,6 +73,77 @@ class Database:
         conn.commit()
         conn.close()
     
+    def get_team_by_code(self, team_code):
+        """Get team by team code - COMPATIBLE VERSION"""
+        conn = self.get_connection()
+        cursor = conn.cursor()
+        
+        # Check what columns actually exist
+        cursor.execute("PRAGMA table_info(teams)")
+        columns = [col[1] for col in cursor.fetchall()]
+        
+        # Build query based on available columns
+        select_columns = []
+        
+        # Always available columns
+        select_columns.append("t.id")
+        select_columns.append("t.name")
+        select_columns.append("t.created_by")
+        select_columns.append("t.created_at")
+        select_columns.append("t.team_code")
+        select_columns.append("t.is_active")
+        
+        # Optional columns (check if they exist)
+        if 'description' in columns:
+            select_columns.append("t.description")
+        
+        if 'settings' in columns:
+            select_columns.append("t.settings")
+        
+        # Add admin info
+        select_columns.append("u.username as admin_name")
+        select_columns.append("u.email as admin_email")
+        
+        query = f'''
+        SELECT {', '.join(select_columns)}
+        FROM teams t
+        LEFT JOIN users u ON t.created_by = u.id
+        WHERE t.team_code = ? AND t.is_active = 1
+        '''
+        
+        cursor.execute(query, (team_code,))
+        
+        team = cursor.fetchone()
+        conn.close()
+        
+        if team:
+            # Map results to dictionary
+            result = {
+                'id': team[0],
+                'name': team[1],
+                'created_by': team[2],
+                'created_at': team[3],
+                'team_code': team[4],
+                'is_active': bool(team[5]),
+            }
+            
+            # Handle optional columns
+            idx = 6
+            if 'description' in columns:
+                result['description'] = team[idx]
+                idx += 1
+            
+            if 'settings' in columns:
+                result['settings'] = json.loads(team[idx]) if team[idx] else {}
+                idx += 1
+            
+            # Admin info
+            result['admin_name'] = team[idx]
+            result['admin_email'] = team[idx + 1]
+            
+            return result
+        return None
+
     def hash_password(self, password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     

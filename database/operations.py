@@ -7,6 +7,69 @@ class DatabaseOperations:
         self.db = db
     
     # ========== MOOD OPERATIONS ==========
+    def add_team_member(self, team_id, email, role='member'):
+        """Add a member to team by email"""
+        conn = self.db.get_connection()
+        cursor = conn.cursor()
+        
+        try:
+            # Find user by email
+            cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+            user = cursor.fetchone()
+            
+            if not user:
+                return False, "User not found"
+            
+            user_id = user[0]
+            
+            # Check if already in a team
+            cursor.execute('SELECT team_id FROM users WHERE id = ?', (user_id,))
+            existing_team = cursor.fetchone()
+            
+            if existing_team and existing_team[0]:
+                return False, "User is already in a team"
+            
+            # Add to team
+            cursor.execute('UPDATE users SET team_id = ?, role = ? WHERE id = ?', 
+                        (team_id, role, user_id))
+            
+            conn.commit()
+            return True, f"Successfully added user to team"
+            
+        except Exception as e:
+            conn.rollback()
+            return False, str(e)
+        finally:
+            conn.close()
+
+    def get_team_invite_info(self, team_id):
+        """Get team info for invitations"""
+        conn = self.db.get_connection()
+        
+        query = '''
+        SELECT t.name, u.username as admin_name, u.email as admin_email,
+            COUNT(DISTINCT u2.id) as member_count
+        FROM teams t
+        LEFT JOIN users u ON t.created_by = u.id
+        LEFT JOIN users u2 ON u2.team_id = t.id
+        WHERE t.id = ?
+        GROUP BY t.id, t.name, u.username, u.email
+        '''
+        
+        cursor = conn.cursor()
+        cursor.execute(query, (team_id,))
+        result = cursor.fetchone()
+        conn.close()
+        
+        if result:
+            return {
+                'name': result[0],
+                'admin_name': result[1],
+                'admin_email': result[2],
+                'member_count': result[3]
+            }
+        return None
+    
     def create_mood_entry(self, user_id, text_entry=None, text_sentiment=None, 
                          visual_sentiment=None, stress_level=5):
         """Create a new mood entry"""
@@ -355,3 +418,8 @@ class DatabaseOperations:
 
 # Create singleton instance
 db_ops = DatabaseOperations()
+
+
+    
+    
+    

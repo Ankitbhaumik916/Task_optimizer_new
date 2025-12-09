@@ -961,19 +961,18 @@ def show_team_info():
     if not team_id:
         st.warning("You are not part of a team yet.")
         
-        # Create team option
-        with st.expander("Create a Team"):
-            team_name = st.text_input("Team Name")
-            if st.button("Create Team"):
-                if team_name:
-                    new_team_id = db.db.create_team(team_name, user_id)
-                    st.session_state.user['team_id'] = new_team_id
-                    st.success(f"Team '{team_name}' created! Refreshing...")
-                    time.sleep(2)
-                    st.rerun()
+        # Add buttons to create/join team
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("🏢 Create New Team", use_container_width=True):
+                st.switch_page("pages/6_Team_Management.py")
+        with col2:
+            if st.button("🤝 Join Existing Team", use_container_width=True):
+                st.switch_page("pages/6_Team_Management.py")
         
         return
-    
+    if st.button("⚙️ Manage Team", type="primary"):
+         st.switch_page("pages/6_Team_Management.py")    
     # Get team information
     team_members = db_ops.get_team_members(team_id)
     team_stats = db_ops.get_team_stats(team_id)
@@ -1284,8 +1283,12 @@ def show_settings():
         st.error("User not found!")
         return
     
+    # Get team_id from user object
+    team_id = user.get('team_id')
+    
     # Tabs for different settings
-    tab1, tab2, tab3, tab4 = st.tabs(["Profile", "Privacy", "Notifications", "Account"])    
+    tab1, tab2, tab3, tab4 = st.tabs(["Profile", "Privacy", "Notifications", "Account"])
+    
     with tab1:
         st.subheader("Profile Settings")
         
@@ -1302,13 +1305,37 @@ def show_settings():
                 
                 # Role change (admin only feature - placeholder)
                 if current_role == 'admin':
-                    new_role = st.selectbox("Change Role", ["member", "admin"], index=0 if current_role == 'member' else 1)
+                    new_role = st.selectbox("Change Role", ["member", "admin"], 
+                                          index=0 if current_role == 'member' else 1)
                 else:
                     st.info("Contact admin to change role")
             
             if st.form_submit_button("Update Profile"):
-                # Update logic here
-                st.success("Profile updated successfully!")
+                # Update logic here (to be implemented in Phase 3)
+                st.success("Profile update feature coming in Phase 3!")
+        
+        # Team section - FIXED
+        st.markdown("---")
+        st.subheader("Team")
+        
+        if team_id:
+            # Get team info from database
+            team_info = db.get_team_by_id(team_id)
+            if team_info:
+                st.write(f"**Current Team:** {team_info['name']}")
+                st.write(f"**Team Admin:** {team_info.get('admin_name', 'Unknown')}")
+            
+            if st.button("Go to Team Management", type="primary"):
+                st.switch_page("pages/6_Team_Management.py")
+        else:
+            st.info("You are not currently in a team")
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("Create Team", use_container_width=True):
+                    st.switch_page("pages/6_Team_Management.py")
+            with col2:
+                if st.button("Join Team", use_container_width=True):
+                    st.switch_page("pages/6_Team_Management.py")
     
     with tab2:
         st.subheader("Privacy Settings")
@@ -1374,6 +1401,37 @@ def show_settings():
             st.success("Privacy settings saved!")
     
     with tab3:
+        st.subheader("Notification Preferences")
+        
+        # Mood tracking preferences
+        st.write("**Mood Tracking Preferences**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            enable_text_tracking = st.checkbox("Enable text mood analysis", value=True)
+            enable_daily_reminders = st.checkbox("Daily mood check reminders", value=True)
+        
+        with col2:
+            enable_visual_tracking = st.checkbox("Enable visual mood analysis (coming soon)", 
+                                               value=False, disabled=True)
+            share_anonymous_data = st.checkbox("Share anonymous data for analytics", value=True)
+        
+        # Notification preferences
+        st.write("**Notification Preferences**")
+        
+        notification_cols = st.columns(3)
+        with notification_cols[0]:
+            email_notifications = st.checkbox("Email notifications", value=True)
+        with notification_cols[1]:
+            task_reminders = st.checkbox("Task reminders", value=True)
+        with notification_cols[2]:
+            mood_summaries = st.checkbox("Weekly mood summaries", value=True)
+        
+        if st.button("Save Preferences"):
+            st.success("Preferences saved!")
+    
+    with tab4:
         st.subheader("Account Settings")
         
         st.write("**Change Password**")
@@ -1390,18 +1448,19 @@ def show_settings():
                     st.error("Password must be at least 6 characters")
                 else:
                     # Verify current password
-                    conn = db.db.get_connection()
+                    conn = db.get_connection()
                     cursor = conn.cursor()
                     cursor.execute('SELECT password_hash FROM users WHERE id = ?', (user_id,))
-                    current_hash = cursor.fetchone()[0]
+                    result = cursor.fetchone()
                     conn.close()
                     
-                    if db.db.verify_password(current_password, current_hash):
+                    if result and db.verify_password(current_password, result[0]):
                         # Update password
-                        new_hash = db.db.hash_password(new_password)
-                        conn = db.db.get_connection()
+                        new_hash = db.hash_password(new_password)
+                        conn = db.get_connection()
                         cursor = conn.cursor()
-                        cursor.execute('UPDATE users SET password_hash = ? WHERE id = ?', (new_hash, user_id))
+                        cursor.execute('UPDATE users SET password_hash = ? WHERE id = ?', 
+                                     (new_hash, user_id))
                         conn.commit()
                         conn.close()
                         
@@ -1426,6 +1485,6 @@ def show_settings():
                 
                 if confirm and st.button("Confirm Deletion", type="primary"):
                     st.error("Account deletion feature will be implemented in Phase 3")
-
+                    
 if __name__ == "__main__":
     main()
