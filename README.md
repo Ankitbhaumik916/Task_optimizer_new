@@ -40,7 +40,7 @@ Communication Patterns: Analyzes collaboration effectiveness
 Adaptive Learning: Continuously improves recommendations based on outcomes
 
 🏗️ System Architecture
-text
+
 ┌─────────────────────────────────────────────────────────┐
 │                    User Interface                       │
 │  • Dashboard & Analytics                               │
@@ -82,59 +82,60 @@ text
 │  • Project Requirements                                 │
 │  • Collaboration Metrics                                │
 └─────────────────────────────────────────────────────────┘
+
 🔧 Core Components
-1. Profile Analyzer
-Extracts skills, experience, and personality traits from employee profiles
-
-Creates comprehensive competency matrices
-
-Tracks professional development over time
-
-2. Team Dynamics Model
-Social Network Analysis: Maps communication patterns and influence networks
-
-Collaboration Graph: Visualizes working relationships and knowledge flow
-
-Sentiment Analysis: Monitors team morale from communications
-
-3. Project-Requirement Parser
-Analyzes project descriptions to extract required skills and competencies
-
-Estimates complexity and resource requirements
-
-Identifies critical success factors
-
-4. Optimization Engine
-Uses genetic algorithms to explore team configurations
-
-Multi-objective optimization balancing multiple constraints
-
-Constraint satisfaction for hard requirements
-
-📊 Data Inputs
-Employee Data
-json
-{
-  "employee_id": "E12345",
-  "skills": ["Python", "Machine Learning", "Project Management"],
-  "experience_years": 5,
-  "personality_traits": {"extraversion": 0.7, "conscientiousness": 0.9},
-  "past_teams": ["Project Alpha", "Project Beta"],
-  "performance_metrics": {"productivity": 8.5, "collaboration": 9.0},
-  "availability": {"hours_per_week": 40, "start_date": "2024-01-01"},
-  "preferences": {"work_style": ["remote", "flexible"], "team_size": "small"}
-}
-Project Requirements
-json
-{
-  "project_id": "P78901",
-  "required_skills": ["Data Science", "Cloud Computing", "UI/UX"],
-  "complexity_level": "high",
-  "timeline": {"duration_weeks": 12, "deadline": "2024-03-31"},
-  "team_size": {"min": 4, "max": 8},
-  "constraints": {"budget": 150000, "location": "hybrid"},
-  "success_metrics": ["delivery_on_time", "quality_score", "client_satisfaction"]
-}
+  1. Profile Analyzer
+  Extracts skills, experience, and personality traits from employee profiles
+  
+  Creates comprehensive competency matrices
+  
+  Tracks professional development over time
+  
+  2. Team Dynamics Model
+  Social Network Analysis: Maps communication patterns and influence networks
+  
+  Collaboration Graph: Visualizes working relationships and knowledge flow
+  
+  Sentiment Analysis: Monitors team morale from communications
+  
+  3. Project-Requirement Parser
+  Analyzes project descriptions to extract required skills and competencies
+  
+  Estimates complexity and resource requirements
+  
+  Identifies critical success factors
+  
+  4. Optimization Engine
+  Uses genetic algorithms to explore team configurations
+  
+  Multi-objective optimization balancing multiple constraints
+  
+  Constraint satisfaction for hard requirements
+  
+  📊 Data Inputs
+  Employee Data
+  json
+  {
+    "employee_id": "E12345",
+    "skills": ["Python", "Machine Learning", "Project Management"],
+    "experience_years": 5,
+    "personality_traits": {"extraversion": 0.7, "conscientiousness": 0.9},
+    "past_teams": ["Project Alpha", "Project Beta"],
+    "performance_metrics": {"productivity": 8.5, "collaboration": 9.0},
+    "availability": {"hours_per_week": 40, "start_date": "2024-01-01"},
+    "preferences": {"work_style": ["remote", "flexible"], "team_size": "small"}
+  }
+  Project Requirements
+  json
+  {
+    "project_id": "P78901",
+    "required_skills": ["Data Science", "Cloud Computing", "UI/UX"],
+    "complexity_level": "high",
+    "timeline": {"duration_weeks": 12, "deadline": "2024-03-31"},
+    "team_size": {"min": 4, "max": 8},
+    "constraints": {"budget": 150000, "location": "hybrid"},
+    "success_metrics": ["delivery_on_time", "quality_score", "client_satisfaction"]
+  }
 🧠 AI/ML Models Used
 1. Neural Collaborative Filtering (NCF)
 Purpose: Predicts team-member compatibility
