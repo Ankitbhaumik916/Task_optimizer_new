@@ -1,265 +1,271 @@
-🏆 AI-Powered Team Optimizer
-📋 Overview
+# 🧠 Team Optimizer AI
 
-AI-Powered Team Optimizer is an intelligent decision-support system that uses advanced machine learning to analyze team composition, collaboration patterns, and performance data to recommend optimal team structures.
-It helps organizations maximize productivity, reduce risks, and improve collaboration by making data-driven team decisions.
+An intelligent **Streamlit-based web application** that helps teams optimize productivity, track mood, manage tasks, and analyze team dynamics using **AI-powered sentiment analysis** and visual analytics.
 
-🎯 Key Features
-🔍 Team Composition Analysis
+---
 
-Skill Gap Detection – Identifies missing or weak competencies
+## 📋 Overview
 
-Personality Balance – Ensures complementary personality traits for synergy
+Team Optimizer AI is a comprehensive team management platform that combines:
+- **Mood Tracking** with text and visual sentiment analysis
+- **Task Management** with priority levels and deadlines
+- **Team Analytics** with interactive visualizations
+- **User Authentication** with secure credential management
+- **Team Management** for creating and organizing teams
 
-Experience Distribution – Analyzes senior–junior ratios and mentorship potential
+---
 
-Diversity Metrics – Evaluates diversity across skills, background, and demographics
+## ✨ Key Features
 
-📊 Performance Prediction
+### 🎭 Mood Tracker
+- Submit daily mood updates with text entries
+- **Dual Sentiment Analysis:**
+  - Text-based sentiment using VADER and TextBlob
+  - Visual sentiment analysis using DeepFace (facial emotion detection)
+- Fusion engine that combines both analyses
+- Historical mood tracking and trends
 
-Project Success Forecasting – Predicts probability of successful project delivery
+### 📋 Task Manager
+- Create and manage tasks with priorities
+- Set deadlines and track completion
+- Filter tasks by status
+- Task assignments to team members
 
-Risk Assessment – Detects collaboration bottlenecks and failure risks
+### 👥 Team Management
+- Create and manage teams
+- Add/remove team members
+- Role-based access control
+- Team performance analytics
 
-Productivity Scoring – Estimates output efficiency
+### 📊 Analytics Dashboard
+- Interactive charts using Plotly
+- Mood trend analysis over time
+- Team productivity metrics
+- Sentiment distribution visualizations
+- Task completion analytics
 
-Conflict Prediction – Anticipates interpersonal friction
+### 🔐 Authentication
+- Secure user registration and login
+- Password hashing with bcrypt
+- Session management
+- User profile management
 
-🤖 Intelligent Recommendations
+---
 
-Team Formation – Suggests optimal team configurations
+## 🛠️ Technology Stack
 
-Role Assignment – Matches individuals to roles based on strengths
+- **Frontend:** Streamlit
+- **Backend:** Python, SQLite
+- **ML/AI:**
+  - DeepFace (facial emotion recognition)
+  - VADER Sentiment Analysis
+  - TextBlob NLP
+  - TensorFlow/Keras
+- **Visualization:** Plotly, Plotly Express
+- **Security:** bcrypt password hashing
+- **Computer Vision:** OpenCV
 
-Development Needs – Identifies training and upskilling opportunities
+---
 
-Intervention Suggestions – Recommends actions to improve dynamics
+## ⚙️ Installation & Setup
 
-📈 Real-Time Monitoring
+### Prerequisites
+- Python 3.10+
+- 8GB+ RAM (for TensorFlow models)
+- Webcam (optional, for visual sentiment analysis)
 
-Engagement Tracking – Monitors morale and involvement
+### Quick Start
 
-Progress Analytics – Tracks milestones and deliverables
+1. **Clone the repository:**
+```bash
+git clone https://github.com/Ankitbhaumik916/Task_optimizer_new.git
+cd Task_optimizer_new
+```
 
-Communication Analysis – Evaluates collaboration effectiveness
-
-Adaptive Learning – Improves recommendations from historical outcomes
-
-🔧 Core System Components
-1️⃣ Profile Analyzer
-
-Extracts skills, experience, and personality traits
-
-Builds competency matrices
-
-Tracks professional growth over time
-
-2️⃣ Team Dynamics Model
-
-Social Network Analysis – Maps influence and communication flow
-
-Collaboration Graphs – Visualizes knowledge sharing
-
-Sentiment Analysis – Measures team morale
-
-3️⃣ Project Requirement Parser
-
-Extracts required skills from project descriptions
-
-Estimates project complexity and resources
-
-Identifies critical success factors
-
-4️⃣ Optimization Engine
-
-Genetic algorithms for team exploration
-
-Multi-objective optimization
-
-Constraint satisfaction for hard requirements
-
-📊 Data Inputs
-Employee Data (JSON)
-{
-  "employee_id": "E12345",
-  "skills": ["Python", "Machine Learning", "Project Management"],
-  "experience_years": 5,
-  "personality_traits": {
-    "extraversion": 0.7,
-    "conscientiousness": 0.9
-  },
-  "past_teams": ["Project Alpha", "Project Beta"],
-  "performance_metrics": {
-    "productivity": 8.5,
-    "collaboration": 9.0
-  },
-  "availability": {
-    "hours_per_week": 40,
-    "start_date": "2024-01-01"
-  },
-  "preferences": {
-    "work_style": ["remote", "flexible"],
-    "team_size": "small"
-  }
-}
-
-Project Requirements (JSON)
-{
-  "project_id": "P78901",
-  "required_skills": ["Data Science", "Cloud Computing", "UI/UX"],
-  "complexity_level": "high",
-  "timeline": {
-    "duration_weeks": 12,
-    "deadline": "2024-03-31"
-  },
-  "team_size": {
-    "min": 4,
-    "max": 8
-  },
-  "constraints": {
-    "budget": 150000,
-    "location": "hybrid"
-  },
-  "success_metrics": [
-    "delivery_on_time",
-    "quality_score",
-    "client_satisfaction"
-  ]
-}
-
-🧠 AI / ML Models Used
-1️⃣ Neural Collaborative Filtering (NCF)
-
-Predicts team-member compatibility
-
-Output: Compatibility score (0–1)
-
-2️⃣ Graph Neural Networks (GNN)
-
-Models collaboration networks
-
-Outputs cohesion score and bottlenecks
-
-3️⃣ Reinforcement Learning (PPO)
-
-Optimizes team formation dynamically
-
-Reward based on success probability and satisfaction
-
-4️⃣ Clustering Algorithms
-
-K-Means, DBSCAN, Hierarchical clustering
-
-Used for team grouping and mentorship
-
-5️⃣ NLP Models
-
-Skill extraction and requirement parsing
-
-Models: BERT, spaCy, custom transformers
-
-⚙️ Installation & Setup
-Prerequisites
-
-Python 3.8+
-
-PostgreSQL 12+
-
-Redis
-
-8GB+ RAM
-
-20GB+ Disk Space
-
-Quick Start
-git clone https://github.com/yourusername/team-optimizer.git
-cd team-optimizer
-
-python -m venv venv
-source venv/bin/activate
-
+2. **Install dependencies:**
+```bash
 pip install -r requirements.txt
+```
 
-cp .env.example .env
-python manage.py migrate
-python manage.py loaddata sample_data.json
-python manage.py runserver
+3. **Download NLTK data:**
+```bash
+python -m nltk.downloader vader_lexicon punkt
+```
 
-🚀 Usage
-API Example
-import requests
+4. **Run the application:**
+```bash
+streamlit run app.py
+```
 
-response = requests.post(
-  "http://localhost:8000/api/optimize/",
-  json={
-    "project_requirements": {
-      "skills": ["python", "ml", "devops"],
-      "team_size": 5,
-      "timeline_weeks": 8
-    },
-    "available_employees": ["E001", "E002", "E003"],
-    "optimization_goals": ["productivity", "diversity", "cost"]
-  }
-)
+5. **Access the app:**
+   - Local: http://localhost:8501
+   - Network: http://[your-ip]:8501
 
-print(response.json())
+---
 
-CLI
-python -m team_optimizer analyze --team-id TEAM_123
-python -m team_optimizer optimize --project PROJECT_X --size 6
-python -m team_optimizer report --output report.pdf
+## 📦 Dependencies
 
-📈 Sample Output Insights
+```
+streamlit==1.31.0
+pandas==2.2.0
+plotly==5.18.0
+nltk==3.8.1
+textblob==0.17.1
+vaderSentiment==3.3.2
+bcrypt==4.1.2
+deepface
+opencv-python==4.9.0.80
+Pillow==10.2.0
+numpy==1.26.3
+tensorflow
+tf-keras
+```
 
-Success Probability: 87.3%
+---
 
-Productivity Score: 8.7 / 10
+## 🚀 Usage
 
-Cohesion Index: 0.82
+### First Time Setup
+1. Launch the application
+2. **Register** a new account on the login page
+3. Log in with your credentials
 
-Skill Coverage: 90%+ across domains
+### Dashboard Features
+- View overall team metrics
+- Check recent mood entries
+- Monitor task progress
+- Access quick analytics
 
-Recommendations: Mentorship pairing, targeted upskilling
+### Mood Tracking
+1. Navigate to **Mood Tracker**
+2. Enter text about your current mood
+3. (Optional) Upload a photo for visual sentiment analysis
+4. Submit to get AI-powered sentiment analysis
 
-🔍 Evaluation Metrics
+### Task Management
+1. Go to **Task Manager**
+2. Create new tasks with:
+   - Task name
+   - Description
+   - Priority level
+   - Deadline
+3. Assign to team members
+4. Track completion status
 
-Success Rate
+### Analytics
+- Access **Analytics** page for:
+  - Mood trends over time
+  - Sentiment distribution
+  - Task completion rates
+  - Team performance metrics
 
-Productivity Index
+---
 
-Cohesion Score
+## 📂 Project Structure
 
-Prediction AUC
+```
+Task_optimizer_new/
+├── app.py                      # Main Streamlit application
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── auth/
+│   └── authentication.py       # User authentication logic
+├── database/
+│   ├── models.py              # Database models and schema
+│   └── operations.py          # Database operations
+├── pages/
+│   ├── 1_Dashboard.py         # Dashboard page
+│   ├── 2_Mood_Tracker.py      # Mood tracking interface
+│   ├── 3_Task_Manager.py      # Task management
+│   ├── 4_Team_Info.py         # Team information
+│   ├── 5_Analytics.py         # Analytics visualizations
+│   └── 6_Team_Management.py   # Team admin panel
+└── utils/
+    ├── sentiment_analyzer.py   # Text sentiment analysis
+    ├── visual_sentiment.py     # Visual emotion detection
+    ├── fusion_engine.py        # Multi-modal sentiment fusion
+    └── visualizations.py       # Chart and graph utilities
+```
 
-Constraint Satisfaction
+---
 
-Cost Efficiency
+## 🧪 AI/ML Components
 
-🧪 Testing & Validation
-pytest tests/
-pytest --cov=team_optimizer tests/
+### Text Sentiment Analysis
+- **VADER:** Optimized for social media and short texts
+- **TextBlob:** General-purpose sentiment polarity
+- Combines both for robust text sentiment
 
-📄 License
+### Visual Sentiment Analysis
+- **DeepFace:** Pre-trained deep learning model
+- Detects 7 emotions: Happy, Sad, Angry, Surprise, Fear, Disgust, Neutral
+- Facial recognition and emotion classification
 
-MIT License
+### Fusion Engine
+- Intelligently combines text and visual sentiment
+- Weighted average based on confidence scores
+- Adaptive learning from user feedback
 
-🔄 Roadmap
+---
 
-v1.0 (Current)
-✔ Team optimization
-✔ Skill gap analysis
-✔ Web dashboard
+## 🔒 Security Features
 
-v1.5
+- Password hashing using bcrypt
+- Session-based authentication
+- SQL injection prevention
+- Secure credential storage
+- User data isolation
 
-Real-time monitoring
+---
 
-HR system integration
+## 📊 Database Schema
 
-v2.0
+- **Users:** Authentication and profile data
+- **Moods:** Mood entries with sentiment scores
+- **Tasks:** Task details, assignments, status
+- **Teams:** Team structure and membership
+- **Analytics:** Aggregated metrics and trends
 
-Attrition prediction
+---
 
-Career path recommendations
+## 🎯 Future Enhancements
 
-Organization-wide optimization
+- [ ] Real-time team collaboration features
+- [ ] Advanced analytics with predictive modeling
+- [ ] Export reports to PDF/Excel
+- [ ] Slack/Teams integration
+- [ ] Mobile app version
+- [ ] Multi-language support
+- [ ] Custom sentiment models
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use and modify for your needs.
+
+---
+
+## 👨‍💻 Author
+
+**Ankit Bhaumik**
+- GitHub: [@Ankitbhaumik916](https://github.com/Ankitbhaumik916)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## ⚠️ Notes
+
+- TensorFlow models will download on first run (~500MB)
+- Webcam access required for visual sentiment analysis
+- SQLite database created automatically on first run
+- Compatible with Windows, macOS, and Linux
+
+---
+
+**Built with ❤️ using Streamlit and AI**
